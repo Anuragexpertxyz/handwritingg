@@ -145,10 +145,9 @@ src="https://www.facebook.com/tr?id=897546196161650&ev=PageView&noscript=1"
           font-weight: 600;
             margin-bottom: 5px;
         }
-
-        .rocket-emoji {
+.rocket-emoji {
             font-size: 24px;
-            margin-bottom: 25px;
+    margin-bottom: 25px;
         }
 
         /* CTA Button */
@@ -237,9 +236,18 @@ src="https://www.facebook.com/tr?id=897546196161650&ev=PageView&noscript=1"
 
     <!-- Meta Pixel Button Click Event Script -->
     <script>
-        document.getElementById('joinBtn').addEventListener('click', function() {
-            // Button dabaate hi Facebook/Meta Ads me Lead trigger hogi
+        document.getElementById('joinBtn').addEventListener('click', function(event) {
+            // 1. Pehle page redirection ko temporary rokein taaki Pixel track kar sake
+            event.preventDefault(); 
+            
+            // 2. Meta Subscribe event fire karein
             fbq('track', 'Subscribe');
+
+            // 3. 300ms ke delay ke baad Telegram par sahi se bhejein
+            var targetUrl = this.getAttribute('href');
+            setTimeout(function() {
+                window.location.href = targetUrl;
+            }, 300);
         });
     </script>
 
